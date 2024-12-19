@@ -1,0 +1,42 @@
+services:
+  # GeoDjango web application
+  web:
+    # Build from the DockerFile in current directory
+    build:
+      context: .
+    # Host to container port mapping
+    ports:
+      - :8000:8000
+    # Volume mount
+    volumes:
+      - .:/app
+    # Keep container active and interactive
+    tty: true
+    stdin_open: true
+
+  # PostgreSQL database with PostGIS
+  db:
+    # Build based on latest offical image 
+    # (https://registry.hub.docker.com/r/postgis/postgis/)
+    image: postgis/postgis
+    container_name: postgis
+    ports:
+      - "5432:5432"
+    # More info on PostgreSQL container environment variables
+    # (https://github.com/docker-library/docs/blob/master/postgres/README.md)
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+  # Database management tool
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    # More info on pgAdmin container environment variables
+    # (https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html)
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
+    ports:
+      - "5050:80"
