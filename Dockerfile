@@ -39,3 +39,5 @@ RUN chmod +x /venv/bin/*
 # Create non-root user
 RUN addgroup -g 1000 devcontainer && \
     adduser -D -u 1000 -G devcontainer devcontainer
+
+USER devcontainer
