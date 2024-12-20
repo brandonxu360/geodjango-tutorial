@@ -8,7 +8,6 @@ A tutorial project to gain familiarity with using GeoDjango and PostGIS to build
 - Docker Compose
 
 ## Setup
-
 1. **Clone the repository:**
 
     ```sh
@@ -54,15 +53,41 @@ A tutorial project to gain familiarity with using GeoDjango and PostGIS to build
 
 6. **Access the application:**
 
-    Run the following command to start the Django development server:
-
-    ```sh
-    docker compose exec web python manage.py runserver 0.0.0.0:8000
-    ```
-
     - The web application will be available at [http://localhost:8000](http://localhost:8000).
     - The Django admin interface will be available at [http://localhost:8000/admin](http://localhost:8000/admin).
     - pgAdmin will be available at [http://localhost:5050](http://localhost:5050).
+
+## Development Options
+
+### Using Dev Container in VS Code (Recommended)
+
+1. **Prerequisites:**
+   - Visual Studio Code
+   - Docker Desktop
+   - Dev Containers extension for VS Code
+
+2. **Open in Container:**
+   - Open the project folder in VS Code
+   - When prompted, click "Reopen in Container" or use Command Palette (F1) and select "Dev Containers: Reopen in Container"
+   - VS Code will build and start the development container using the configuration in [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json)
+
+3. **Development Environment:**
+   - The container provides a complete development environment with:
+     - Python 3 with Django
+     - GDAL, GEOS, and PROJ for GeoDjango
+     - Direct access to PostgreSQL/PostGIS database
+   - All project files are synced via the volume mount in [compose.yml](compose.yml)
+   - Python extensions and debugging tools work seamlessly inside the container
+
+4. **Using the Terminal:**
+   - VS Code's integrated terminal runs inside the container
+   - All Django management commands can be run directly:
+     ```sh
+     python manage.py migrate
+     python manage.py createsuperuser
+     python manage.py runserver 0.0.0.0:8000
+     ```
+
 
 ## Notes
 
