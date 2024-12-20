@@ -18,18 +18,20 @@ WORKDIR /app
 # Install Python, PIP, and GEOS
 RUN apk add --no-cache python3 py3-pip geos
 
+# Create an activate virtual environment
+RUN python3 -m venv /venv
+
+# Set environment path so virtual environment is used by default
+# when running python commands
+ENV VIRTUAL_ENV=/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 # Install Python dependencies (notably Django and psycopg)
-# Note the use of a virtual environment
 COPY requirements.txt .
-RUN /venv/bin/pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # We use a volume mount in the Compose file instead of COPY here
 # COPY . .
 
 # Make sure scripts in venv are executable
 RUN chmod +x /venv/bin/*
-
-# Set environment path so virtual environment is used by default
-# when running python commands
-ENV VIRTUAL_ENV=/venv
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
