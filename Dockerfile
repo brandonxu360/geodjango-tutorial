@@ -35,3 +35,7 @@ RUN pip install -r requirements.txt
 
 # Make sure scripts in venv are executable
 RUN chmod +x /venv/bin/*
+
+# Create non-root user
+RUN addgroup -g 1000 devcontainer && \
+    adduser -D -u 1000 -G devcontainer devcontainer
