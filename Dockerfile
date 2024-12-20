@@ -15,8 +15,8 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Install Python, PIP, and GEOS
-RUN apk add --no-cache python3 py3-pip geos
+# Install Python, PIP, GEOS, and git
+RUN apk add --no-cache python3 py3-pip geos git
 
 # Create an activate virtual environment
 RUN python3 -m venv /venv
